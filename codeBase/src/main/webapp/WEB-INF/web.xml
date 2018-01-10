@@ -23,6 +23,36 @@
         <filter-name>encodingFilter</filter-name>  
         <url-pattern>/*</url-pattern>  
     </filter-mapping>  
+    <filter>  
+    <filter-name>corsFilter</filter-name>  
+    <filter-class>cn.jadeStones.frame.CorsFilter</filter-class>  
+    <init-param>  
+		<!--允许访问的客户端域名，例如：http://web.xxx.com，若为*，则表示从任意域都能访问，即不做任何限制。 -->
+        <param-name>allowOrigin</param-name>  
+        <param-value>*</param-value>  
+    </init-param>  
+    <init-param> 
+		<!--允许访问的方法名，多个方法名用逗号分割  -->
+        <param-name>allowMethods</param-name>  
+        <param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>  
+    </init-param>  
+    <init-param>  
+ 		<!--是否允许请求带有验证信息，若要获取客户端域下的cookie时，需要将其设置为true -->
+        <param-name>allowCredentials</param-name>  
+        <param-value>true</param-value>  
+    </init-param>  
+    <init-param>
+		<!--允许服务端访问的客户端请求头，多个请求头用逗号分割   -->
+        <param-name>allowHeaders</param-name>  
+        <param-value>Content-Type</param-value>  
+    </init-param>  
+	</filter>  
+	<filter-mapping>  
+	    <filter-name>corsFilter</filter-name>  
+	    <url-pattern>/*</url-pattern>  
+	</filter-mapping>  
+    
+    
     <!-- Spring监听器 -->  
     <listener>  
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
