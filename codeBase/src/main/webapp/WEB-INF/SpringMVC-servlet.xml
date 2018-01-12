@@ -11,20 +11,19 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">  
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->  
     <context:component-scan base-package="cn.jadeStones.Controller" />  
+
+    <mvc:annotation-driven/>  
+<!-- 	    <mvc:message-converters>   -->
+<!-- 	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">   -->
+<!-- 				需要对Jackson的序列化行为进行定制 -->
+<!-- 				<property name="objectMapper" ref="objectMapper"/>   -->
+<!-- 	   		</bean> -->
+<!-- 	    </mvc:message-converters>   -->
+<!-- 	</mvc:annotation-driven>  -->
     
-    <mvc:annotation-driven>  
-	    <mvc:message-converters>  
-	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
-				<!-- 需要对Jackson的序列化行为进行定制 -->
-				<!-- <property name="objectMapper" ref="objectMapper"/>   -->
-	   		</bean>
-	    </mvc:message-converters>  
-	</mvc:annotation-driven> 
-    
-    
-    <!--避免IE执行AJAX时，返回JSON出现下载文件 -->  
+<!--     避免IE执行AJAX时，返回JSON出现下载文件   -->
     <bean id="mappingJacksonHttpMessageConverter"  
-        class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
         <property name="supportedMediaTypes">  
             <list>  
             	<value>apolication/json; charset=UTF-8</value>
@@ -36,10 +35,11 @@
         class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
         <property name="messageConverters">  
             <list>  
-                <ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->  
+                <ref bean="mappingJacksonHttpMessageConverter" /> 
             </list>  
         </property>  
     </bean>  
+    
     <!-- 定义跳转的文件的前后缀 ，视图模式配置-->  
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
         <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->  

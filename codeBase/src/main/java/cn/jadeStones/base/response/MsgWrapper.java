@@ -1,4 +1,4 @@
-package cn.jadeStones.base;
+package cn.jadeStones.base.response;
 
 import java.util.HashMap;
 import java.util.Map;

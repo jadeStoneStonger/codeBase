@@ -1,5 +1,6 @@
 package cn.jadeStones.Controller;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +11,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jadeStones.Entity.Test;
 import cn.jadeStones.Service.TestService;
-import cn.jadeStones.base.MsgWrapper;
-import cn.jadeStones.base.RespMessage;
+import cn.jadeStones.base.response.MsgWrapper;
+import cn.jadeStones.base.response.RespMessage;
 
 @Controller  
 @RequestMapping("/test")  
 public class TestController {
+	
+	private ServletConfig config;
 	
 	@Autowired
 	private TestService test;
 	
 	@RequestMapping("/aaa")  
     public String toIndex(HttpServletRequest request,Model model){  
+		
+		
 		System.out.println(test.selectById());
 		return "index"; 
 	}

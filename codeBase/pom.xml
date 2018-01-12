@@ -9,7 +9,7 @@
   <url>http://maven.apache.org</url>
 	<properties>  
         <!-- spring版本号 -->  
-        <spring.version>4.0.2.RELEASE</spring.version>  
+        <spring.version>4.0.0.RELEASE</spring.version>  
         <!-- mybatis版本号 -->  
         <mybatis.version>3.2.6</mybatis.version>  
         <!-- log4j日志文件管理包版本 -->  
@@ -70,6 +70,11 @@
             <artifactId>spring-context-support</artifactId>  
             <version>${spring.version}</version>  
         </dependency>  
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
   
         <dependency>  
             <groupId>org.springframework</groupId>  
@@ -89,11 +94,11 @@
             <version>1.2.2</version>  
         </dependency>  
         <!-- 导入java ee jar 包 -->  
-        <dependency>  
-            <groupId>javax</groupId>  
-            <artifactId>javaee-api</artifactId>  
-            <version>7.0</version>  
-        </dependency>  
+<!--         <dependency>   -->
+<!--             <groupId>javax</groupId>   -->
+<!--             <artifactId>javaee-api</artifactId>   -->
+<!--             <version>7.0</version>   -->
+<!--         </dependency>   -->
         <!-- 导入Mysql数据库链接jar包 -->  
         <dependency>  
             <groupId>mysql</groupId>  
@@ -178,23 +183,64 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
+			<dependency>
+			    <groupId>commons-codec</groupId>
+			    <artifactId>commons-codec</artifactId>
+			    <version>1.11</version>
+			</dependency>
 		</dependency>
+		<!-- redis.....start -->
+		 <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.6.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+		<!-- redis...end -->
+        <!--jackson   start-->
+		<dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.9.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.9.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.9.3</version>
+            </dependency>
+        <!--jackson   end-->
+<dependency>
+    <groupId>org.hibernate.validator</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>6.0.7.Final</version>
+</dependency>
+
+
     </dependencies> 
     
-<build>  
- <finalName>codeBase</finalName>
-    <plugins>  
-        <!-- 解决maven编译错误 Dynamic Web Module 3.0 requires Java 1.6 or newer 
-        	因为maven选择的老模板是基于1.5的，而我们项目中用了java1.8，所有报错，这里指定maven编译java1.8-->  
-        <plugin>  
-            <groupId>org.apache.maven.plugins</groupId>  
-            <artifactId>maven-compiler-plugin</artifactId>  
-            <version>2.3.2</version>  
-            <configuration>  
-                <source>1.8</source>  
-                <target>1.8</target>  
-            </configuration>  
-        </plugin>  
-    </plugins>  
-</build>  
+	<build>  
+	 <finalName>codeBase</finalName>
+	    <plugins>  
+	        <!-- 解决maven编译错误 Dynamic Web Module 3.0 requires Java 1.6 or newer 
+	        	因为maven选择的老模板是基于1.5的，而我们项目中用了java1.8，所有报错，这里指定maven编译java1.8-->  
+	        <plugin>  
+	            <groupId>org.apache.maven.plugins</groupId>  
+	            <artifactId>maven-compiler-plugin</artifactId>  
+	            <version>2.3.2</version>  
+	            <configuration>  
+	                <source>1.8</source>  
+	                <target>1.8</target>  
+	            </configuration>  
+	        </plugin>  
+	    </plugins>  
+	</build>  
 </project>

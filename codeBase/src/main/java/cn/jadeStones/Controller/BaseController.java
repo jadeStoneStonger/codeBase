@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import cn.jadeStones.base.MsgWrapper;
-import cn.jadeStones.base.RespMessage;
+import cn.jadeStones.base.response.MsgWrapper;
+import cn.jadeStones.base.response.RespMessage;
 
 /**
  * 统一处理异常行为
@@ -54,5 +54,17 @@ public class BaseController {
 	public RespMessage<?> handleException(Exception e){
 		logger.error("异常：{}", e);
 		return MsgWrapper.error(50000);
+	}
+	
+	/**
+	 * 异常处理
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(value={SecurityException.class})
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public RespMessage<?> handleException(SecurityException e){
+		logger.error("异常：{}", e);
+		return MsgWrapper.error(10000);
 	}
 }
