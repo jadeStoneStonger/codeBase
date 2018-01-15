@@ -18,8 +18,6 @@ import cn.jadeStones.base.response.RespMessage;
 @RequestMapping("/test")  
 public class TestController {
 	
-	private ServletConfig config;
-	
 	@Autowired
 	private TestService test;
 	

@@ -13,20 +13,11 @@
     <context:component-scan base-package="cn.jadeStones.Controller" />  
 
     <mvc:annotation-driven/>  
-<!-- 	    <mvc:message-converters>   -->
-<!-- 	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">   -->
-<!-- 				需要对Jackson的序列化行为进行定制 -->
-<!-- 				<property name="objectMapper" ref="objectMapper"/>   -->
-<!-- 	   		</bean> -->
-<!-- 	    </mvc:message-converters>   -->
-<!-- 	</mvc:annotation-driven>  -->
-    
-<!--     避免IE执行AJAX时，返回JSON出现下载文件   -->
+
     <bean id="mappingJacksonHttpMessageConverter"  
         class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
         <property name="supportedMediaTypes">  
             <list>  
-            	<value>apolication/json; charset=UTF-8</value>
                 <value>text/html; charset=UTF-8</value>  
             </list>  
         </property>  
