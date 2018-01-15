@@ -23,7 +23,6 @@
             </list>
         </property>
     </bean>  
-    
 	<!-- mybatis配置开始 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
         destroy-method="close">  

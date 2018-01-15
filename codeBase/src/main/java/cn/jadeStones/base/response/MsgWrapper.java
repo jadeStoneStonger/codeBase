@@ -39,6 +39,10 @@ public class MsgWrapper {
 	public static <T> RespMessage<T> success(final T t) {
 		return new RespMessage<>(OK, t);
 	}
+	
+	public static <T> RespMessage<T> success() {
+		return success(null);
+	}
 
 	/**
 	 * 失败

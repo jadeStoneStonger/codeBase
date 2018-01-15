@@ -15,5 +15,7 @@ public class Test {
 	
 	private String desc;
 	
+	private String password;
+	
 	
 }
