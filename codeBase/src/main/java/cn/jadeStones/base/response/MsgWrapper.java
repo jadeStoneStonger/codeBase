@@ -37,7 +37,7 @@ public class MsgWrapper {
 	 * @return
 	 */
 	public static <T> RespMessage<T> success(final T t) {
-		return new RespMessage<>(OK, t);
+		return new RespMessage<>(t);
 	}
 	
 	public static <T> RespMessage<T> success() {
@@ -54,7 +54,7 @@ public class MsgWrapper {
 			return success(null);
 		}
 		String msg = errors.get(errorCode);
-		return new RespMessage<>(errorCode, msg, null);
+		return new RespMessage<>(errorCode, msg);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class MsgWrapper {
 		sb.append(msg)
 		.append("\n")
 		.append(errmsg);
-		return new RespMessage<>(errorCode, sb.toString(), null);
+		return new RespMessage<>(errorCode, sb.toString());
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class MsgWrapper {
 			return success(null);
 		}
 		String msg = errors.get(errorCode);
-		return new RespMessage<>(errorCode, String.format(msg, params), null);
+		return new RespMessage<>(errorCode, String.format(msg, params));
 	}
 	
 	/**
@@ -105,11 +105,11 @@ public class MsgWrapper {
 //				return new RespMessage<>(errorCode, sb.toString(), null);
 //			}else{
 				String msg = errors.get(errorCode);
-				return new RespMessage<>(errorCode, msg, null);
+				return new RespMessage<>(errorCode, msg);
 //			}
 		}else{
 			String msg = errors.get(errorCode);
-			return new RespMessage<>(errorCode, msg, null);
+			return new RespMessage<>(errorCode, msg);
 		}
 	}
 
