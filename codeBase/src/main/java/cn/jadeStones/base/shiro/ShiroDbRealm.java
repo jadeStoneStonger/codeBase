@@ -12,13 +12,15 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import cn.jadeStones.Entity.Test;
 import cn.jadeStones.Service.TestService;
 
-
+@Component("myRealm")
 public class ShiroDbRealm extends AuthorizingRealm {
 	
+	@Autowired
 	private TestService testService;
 	
 	public static final String SESSION_USER_KEY = "gray";

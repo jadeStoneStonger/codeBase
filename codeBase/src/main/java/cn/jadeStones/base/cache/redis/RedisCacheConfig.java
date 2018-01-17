@@ -1,4 +1,4 @@
-package cn.jadeStones.base.redis;
+package cn.jadeStones.base.cache.redis;
 
 import java.lang.reflect.Method;
 

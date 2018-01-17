@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.jadeStones.Entity.Test;
 import cn.jadeStones.Service.TestService;
+import cn.jadeStones.base.cache.CacheOperate;
 import cn.jadeStones.base.response.MsgWrapper;
 import cn.jadeStones.base.response.RespMessage;
 
@@ -24,6 +25,8 @@ public class TestController {
 	
 	@Autowired
 	private TestService test;
+	@Autowired
+	private CacheOperate cacheOperate;
 	
 	@RequestMapping("/aaa")  
     public String toIndex(HttpServletRequest request,Model model){  
@@ -34,7 +37,6 @@ public class TestController {
 	}
 	
 	@RequestMapping("/getJson")
-	@ResponseBody
 	public RespMessage<Test> getTestById(){
 		return MsgWrapper.success(new Test(1,"name","desc","aa"));
 	}
@@ -60,4 +62,12 @@ public class TestController {
        return MsgWrapper.error(10003);  
    }  
 
+	@RequestMapping("/redis")
+	@ResponseBody
+	public RespMessage redis(){
+		cacheOperate.setString("aa", "aa");
+		String a = cacheOperate.getString("aa");
+		return MsgWrapper.success(null);
+	}
+	
 }
