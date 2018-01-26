@@ -3,43 +3,67 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-<!-- 启用shrio授权注解拦截方式 -->
-<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
- <!-- 装配 securityManager -->
-<property name="securityManager" ref="securityManager"/>
-<!-- 配置登陆页面 -->
-<property name="loginUrl" value="/login.html"/>
-<!-- 登陆成功后的一面 -->
-<property name="successUrl" value="/index.html"/>
-<property name="unauthorizedUrl" value="/unauthorized.html"/>
-<!-- 具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.  -->
- <property name="filterChainDefinitions">
- <value>
-       /jsp/success.jsp=anon
-       /jsp/fail.jsp=anon
-       /jsp/user.jsp = roles[user]
-       /jsp/admin.jsp = roles[admin]
-       /logout = logout
- </value>
- </property>
-</bean>
+	<bean id="userFilter" class="cn.jadeStones.base.shiro.LoginFilter"></bean>
 
-<!-- 配置缓存管理器 -->
-<!-- <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"> -->
-<!-- 指定 ehcache 的配置文件 --> 
-<!--      <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>  -->
-<!-- </bean> -->
-
-<!-- 配置进行授权和认证的 Realm -->
-<!-- <bean id="myRealm" class="cn.jadeStones.base.shiro.ShiroDbRealm"> -->
-<!--      <property name="testService" ref="testService" /> -->
-<!--  </bean> -->
-<!-- <bean id="testService" class="cn.jadeStones.Service.Impl.TestServiceImpl" /> -->
-
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager"/>
+		<property name="loginUrl" value="/login.json"/>
+		<property name="successUrl" value="/asd/index.html"/>
+		<property name="unauthorizedUrl" value="/unauthorized.html"/>
+		<property name="filters">
+			<map>
+				<entry key="user" value-ref="userFilter" />
+			</map>
+		</property>
+	 	<property name="filterChainDefinitions">
+			 <value>
+		        <!-- 静态资源允许访问 -->  
+                /asserts/** = anon  
+                /login.html = anon  
+                / = anon
+                <!-- 登录页允许访问 -->  
+                /login = anon  
+                <!-- 其他资源需要认证 -->  
+                /** = authc  
+                /index.html =authc
+		 	</value>
+		 </property>
+	</bean>
 <!-- 配置 Shiro 的 SecurityManager Bean. -->
-<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-<property name="realm" ref="myRealm"/>
-</bean>
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	  	<property name="cacheManager" ref="shiroCacheManager"/>
+        <property name="sessionManager" ref="shiroSessionManager"/>
+        <property name="realms">
+        	<list>
+        		<ref bean="myRealm"/>
+        	</list>
+        </property>
+	</bean>
 <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->
-<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+	<bean id="shiroRedisManager" class="org.crazycake.shiro.RedisManager">
+	    <property name="host" value="${redis.host}"/>
+	    <property name="port" value="${redis.port}"/>
+	    <property name="password" value="${redis.password}"/>
+	    <property name="expire" value="${redis.expiration}"/>
+<!-- 	    <property name="database" value="${redis.database:7}"/> -->
+	    <!-- optional properties:
+	    <property name="timeout" value="10000"/>
+	    -->
+	</bean>
+	<!-- shiroCacheManager -->
+	<bean id="shiroCacheManager" class="org.crazycake.shiro.RedisCacheManager">
+	    <property name="redisManager" ref="shiroRedisManager" />
+	</bean>
+	<!-- redisSessionDAO -->
+	<bean id="shiroRedisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
+	    <property name="redisManager" ref="shiroRedisManager" />
+	</bean>
+	<!-- sessionManager -->
+	<bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="86400000"></property>
+	    <property name="sessionDAO" ref="shiroRedisSessionDAO" />
+	</bean>
+
 </beans>

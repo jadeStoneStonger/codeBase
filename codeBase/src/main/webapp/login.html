@@ -9,18 +9,16 @@
   crossorigin="anonymous"></script>
 </head>
 <body>
-<h1 align = "center">欢迎</h1>
- </iframe> 
- 
-<div id="">
-            用户名 :
-            <input type="text" name="name" id="name" value="" />
-        </div>
-        <div id="">
-            密 码 :
-            <input type="text" name="password" id="password" value="" />
-        </div>
-          <input type="button" name="" id="denglu" value="登录"  onclick="login()"/>
+
+<!-- <div id=""> -->
+<!--             <input type="text" name="name" id="name" value="" /> -->
+<!--         </div> -->
+<!--         <div id=""> -->
+<!--             <input type="text" name="password" id="password" value="" /> -->
+<!--         </div> -->
+          <input type="button" name="" id="denglu" value="login"  onclick="login()"/>
+          <input type="button" name="" id="denglu" value="logout"  onclick="logout()"/>
+          
 </body>
 <script type="text/javascript">
 var curWwwPath=window.document.location.href;  
@@ -40,17 +38,41 @@ if(pathName.substr(1).indexOf('/')<0) { //根目录
 function login(){
 	$.ajax({
 	    type: "post",
-	    url: projectName + "/test/login.json",
+	    url: projectName + "/login.json",
 	    data: {
-	    	name: $("#name").val(),
-	    	password: $("#password").val()
+// 	    	name: $("#name").val(),
+// 	    	password: $("#password").val()
+	    	name: 1,
+	    	password: 1
 	    },
 	    dataType: "json",
 	    success: function(r) {     
 	    	if(r.code == 20000){
 	    		window.location = projectName + "/index.html";
 	    	}else{
-				alert(r.msg);
+				alert(r.message);
+				window.location = projectName + "/login.html";
+	    	}
+	    }
+	});
+}
+
+function logout(){
+	$.ajax({
+	    type: "post",
+	    url: projectName + "/logout.json",
+	    data: {
+// 	    	name: $("#name").val(),
+// 	    	password: $("#password").val()
+	    	name: 1,
+	    	password: 1
+	    },
+	    dataType: "json",
+	    success: function(r) {     
+	    	if(r.code == 20000){
+	    		window.location = projectName + "/login.html";
+	    	}else{
+				alert(r.message);
 	    	}
 	    }
 	});

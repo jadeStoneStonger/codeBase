@@ -9,17 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class RespMessage<T> extends HashMap<String,Object> implements Serializable { /**
+public class RespMessage<T> extends HashMap<String,Object> implements Serializable { 
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4055259087400661458L;
-	private static final String DEFAULT_STATUS_NAME="status";
-    private static final String DEFAULT_MESSAGE_NAME="message";
-    private static final String DEFAULT_VALUE_NAME="value";
-    private static final String DEFAULT_TOTAL_NAME="total";
-    private static final String DEFAULT_MAP_NAME="map";
-    private static final String DEFAULT_LIST_NAME="list";
-    private static final String DEFAULT_RES_CODE="code";
+	private static final String DEFAULT_STATUS_NAME = "status";
+    private static final String DEFAULT_MESSAGE_NAME = "message";
+    private static final String DEFAULT_VALUE_NAME = "value";
+    private static final String DEFAULT_TOTAL_NAME = "total";
+    private static final String DEFAULT_MAP_NAME = "map";
+    private static final String DEFAULT_LIST_NAME = "list";
+    private static final String DEFAULT_RES_CODE = "code";
     
     public static final String TOKEN_SESSION="token";
 
