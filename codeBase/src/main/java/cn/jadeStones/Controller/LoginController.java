@@ -1,5 +1,7 @@
 package cn.jadeStones.Controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +29,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login")  
-    public RespMessage<String> login(HttpServletRequest request){  
+    public RespMessage<String> login(HttpServletRequest request,
+    		HttpServletResponse response){  
        String username=request.getParameter("name");  
        String password=request.getParameter("password");  
        if((username!=null && password!=null)){  
@@ -43,10 +46,12 @@ public class LoginController {
                return MsgWrapper.error(10002);  
            }  
        }
-       if(username == null && password == null){
-           return MsgWrapper.error(10004);  
-       }
-       return MsgWrapper.error(10003);  
+       try {
+			response.sendRedirect("login.html");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} 
+       return null;
     } 
 	
 	@RequestMapping("/logout")
