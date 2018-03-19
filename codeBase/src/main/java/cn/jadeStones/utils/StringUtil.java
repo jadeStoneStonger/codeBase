@@ -1,5 +1,6 @@
 package cn.jadeStones.utils;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -136,7 +137,33 @@ public class StringUtil extends StringUtils{
 			return matcher.matches();
 		}
 		return false;
-		
 	}
-
+	
+	/**
+	 * 返回字段名的驼峰命名
+	 * in： FIELD_NAME1, FIELD_NAME2, FIELD_NAME_NAME3
+	 * out: fieldName1, fieldName2, fieldNameName3
+	 * @param fieldName
+	 * @return
+	 */
+	public static String convertFiedlName2Hump(String fieldName){
+		return Arrays.asList(fieldName.split(",")).stream()
+		.map((f)->{
+			StringBuffer sb = new StringBuffer(f).append(" AS");
+			//此句用于表别名
+//			sb.insert(1,"t1.");  
+			Matcher m = Pattern.compile("_[a-z]").matcher(f.toLowerCase());
+			while (m.find()){ 
+				m.appendReplacement(sb,  m.group().substring(1).toUpperCase());
+			}
+			m.appendTail(sb);
+			return sb.toString();
+			}
+		).reduce((f,l)->{return f+","+l;}).get();
+	}
+	
+	public static void main(String[] args) {
+		String a = " NOS, PAYCODE, PAYNAME, WORDS, PAYMONEY, BZ2, CRT_TIME, REC_TIME";
+		System.out.println(convertFiedlName2Hump(a));
+	}
 }
