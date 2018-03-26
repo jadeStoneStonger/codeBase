@@ -19,7 +19,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 			 <value>
 		        <!-- 静态资源允许访问 -->  
                 /asserts/** = anon  
-                /login.html = anon  
+                /login.html = anon
+                /chatHome.html = anon
                 / = anon
                 <!-- 登录页允许访问 -->  
                 /login = anon  
