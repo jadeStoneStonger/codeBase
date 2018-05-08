@@ -6,15 +6,19 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jadeStones.Entity.Test;
@@ -68,7 +72,6 @@ public class TestController {
            }catch (AuthenticationException e){  
            }  
            if( subject.isAuthenticated()){  
-//               subject.logout();  
                return MsgWrapper.success();  
            }else {  
                return MsgWrapper.error(10002);  
@@ -85,4 +88,14 @@ public class TestController {
 		return MsgWrapper.success(null);
 	}
 	
+
+	@RequestMapping("/ehcacheAble")
+	@ResponseBody
+	public RespMessage<?> ehcacheAble(@RequestParam("ehCacheKey") String ehCacheKey){
+		// 不能再同一个类中调用被注解缓存了的方法
+		// @cacheable 这些缓存实际上还是aop 
+		// 你要实现方法内部的调用 要在aop的配置上加上exposeProxy=true 
+		// 然后使用的时候使用AopContext.currentProxy() 代替this
+		return MsgWrapper.success(test.testEhcache(ehCacheKey));
+	}
 }

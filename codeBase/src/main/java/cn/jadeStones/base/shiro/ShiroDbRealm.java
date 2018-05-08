@@ -14,14 +14,15 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import cn.jadeStones.Entity.BUser;
 import cn.jadeStones.Entity.Test;
-import cn.jadeStones.Service.TestService;
+import cn.jadeStones.Service.Impl.BUserServiceImpl;
 
 @Component("myRealm")
 public class ShiroDbRealm extends AuthorizingRealm {
 	
 	@Autowired
-	private TestService testService;
+	private BUserServiceImpl bUsers;
 	
 	public static final String SESSION_USER_KEY = "gray";
 
@@ -43,11 +44,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authcToken) throws AuthenticationException {
 		// 把token转换成User对象
-		Test userLogin = tokenToUser((UsernamePasswordToken) authcToken);
+		BUser userLogin = tokenToUser((UsernamePasswordToken) authcToken);
 		// 验证用户是否可以登录
-		Test ui = testService.doUserLogin(userLogin);
-		if(ui == null)
-			return null; // 异常处理，找不到数据
+		BUser ui = (BUser) bUsers.selectBySelective(userLogin);
+		if(ui == null) return null; 
 		// 设置session
 		Session session = SecurityUtils.getSubject().getSession();
 		session.setAttribute(ShiroDbRealm.SESSION_USER_KEY, ui); 
@@ -59,18 +59,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		return new SimpleAuthenticationInfo(principal, userLogin.getPassword(), realmName);
 	}
 
-	private Test tokenToUser(UsernamePasswordToken authcToken) {
-		Test user = new Test();
+	private BUser tokenToUser(UsernamePasswordToken authcToken) {
+		BUser user = new BUser();
 		user.setName(authcToken.getUsername());
 		user.setPassword(String.valueOf(authcToken.getPassword()));
 		return user;
-	}
-
-	public TestService getTestService() {
-		return testService;
-	}
-
-	public void setTestService(TestService testService) {
-		this.testService = testService;
 	}
 }

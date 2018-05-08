@@ -30,7 +30,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		 	</value>
 		 </property>
 	</bean>
-<!-- 配置 Shiro 的 SecurityManager Bean. -->
+	<!-- 配置 Shiro 的 SecurityManager Bean. -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 	  	<property name="cacheManager" ref="shiroCacheManager"/>
         <property name="sessionManager" ref="shiroSessionManager"/>
@@ -40,16 +40,39 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
         	</list>
         </property>
 	</bean>
-<!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->
+	<!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+	<!-- 数据库保存的密码是使用MD5算法加密的，所以这里需要配置一个密码匹配对象 -->
+<!--     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.Md5CredentialsMatcher"></bean> -->
+    
+    <!-- 缓存管理 -->
+<!--     <bean id="shiroCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean> -->
+
+	<!-- 使用Shiro自带的JdbcRealm类 指定密码匹配所需要用到的加密对象 指定存储用户、角色、权限许可的数据源及相关查询语句 -->
+<!--     <bean id="jdbcRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm"> -->
+<!--         <property name="credentialsMatcher" ref="credentialsMatcher"></property> -->
+<!--         <property name="permissionsLookupEnabled" value="true"></property> -->
+<!--         <property name="dataSource" ref="dataSource"></property> -->
+		<!-- 登陆 -->
+<!--         <property name="authenticationQuery" -->
+<!--             value="SELECT password FROM sec_user WHERE user_name = ?"></property> -->
+		<!-- 角色 -->
+<!--         <property name="userRolesQuery" -->
+<!--             value="SELECT role_name from sec_user_role left join sec_role using(role_id) left join sec_user using(user_id) WHERE user_name = ?"></property> -->
+		<!-- 权限 -->
+<!--         <property name="permissionsQuery" -->
+<!--             value="SELECT permission_name FROM sec_role_permission left join sec_role using(role_id) left join sec_permission using(permission_id) WHERE role_name = ?"></property> -->
+<!--     </bean> -->
+	
 
 	<bean id="shiroRedisManager" class="org.crazycake.shiro.RedisManager">
 	    <property name="host" value="${redis.host}"/>
 	    <property name="port" value="${redis.port}"/>
 	    <property name="password" value="${redis.password}"/>
 	    <property name="expire" value="${redis.expiration}"/>
-<!-- 	    <property name="database" value="${redis.database:7}"/> -->
-	    <!-- optional properties:
+		<!--
+		<property name="database" value="${redis.database:7}"/> 
 	    <property name="timeout" value="10000"/>
 	    -->
 	</bean>

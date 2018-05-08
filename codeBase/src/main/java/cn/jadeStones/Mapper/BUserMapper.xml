@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.jadeStones.Dao.BUserMapper" >
+<mapper namespace="cn.jadeStones.Dao.TestMapper" >
 <!-- 	mybatis配合redis对不常变动的数据缓存 -->
   <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
-  <resultMap id="BaseResultMap" type="cn.jadeStones.Entity.BUser" >
+  <resultMap id="BaseResultMap" type="cn.jadeStones.Entity.Test" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DESC" property="desc" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    `ID`, `NAME`, `PASSWORD`
+    `ID`, `NAME`, `DESC`,`PASSWORD`
   </sql>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 	SELECT 
 	<include refid="Base_Column_List" />
-	FROM bUser
+	FROM TEST
   	where ID = #{id}
   </select>
   
-   <select id="selectBySelective" parameterType="cn.jadeStones.Entity.BUser" resultMap="BaseResultMap">
+   <select id="selectBySelective" parameterType="cn.jadeStones.Entity.Test" resultMap="BaseResultMap">
 	SELECT 
 	<include refid="Base_Column_List" />
-	FROM bUser
+	FROM TEST
   	where 1=1
  	<if test="name != null" >
        AND name = #{name,jdbcType=VARCHAR}

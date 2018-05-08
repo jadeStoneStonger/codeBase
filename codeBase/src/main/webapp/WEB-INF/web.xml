@@ -45,7 +45,7 @@
     <filter>  
     
     <filter-name>corsFilter</filter-name>  
-    <filter-class>cn.jadeStones.frame.CorsFilter</filter-class>  
+    <filter-class>cn.jadeStones.base.CorsFilter</filter-class>  
 	    <init-param>  
 			<!--允许访问的客户端域名，例如：http://web.xxx.com，若为*，则表示从任意域都能访问，即不做任何限制。 -->
 	        <param-name>allowOrigin</param-name>  
