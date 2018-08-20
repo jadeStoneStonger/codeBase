@@ -19,5 +19,5 @@ public interface TokenManager {
 	 * @param token
 	 * @return
 	 */
-    boolean checkToken(String token);  
+    boolean checkToken(String token); 
 }

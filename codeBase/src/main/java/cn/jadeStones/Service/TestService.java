@@ -9,5 +9,5 @@ public interface TestService {
 	
 	Test doUserLogin(Test test);
 	
-	Integer testEhcache(String key);
+	Object testEhcache(String key);
 }

@@ -27,5 +27,6 @@
     <import resource="classpath:spring/spring-mybatis.xml"></import>
     <import resource="classpath:spring/spring-redis.xml"></import>
     <import resource="classpath:spring/spring-shiro.xml"></import>
+<!--         <import resource="classpath:spring/spring-ehcache.xml"></import> -->
     
  </beans>

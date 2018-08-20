@@ -18,15 +18,15 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
 
-import cn.jadeStones.base.cache.CacheOperate;
+import cn.jadeStones.base.cache.CacheOperator;
 
 /*
  * 使用第三方缓存服务器，处理二级缓存
  */
 @Component("redisOperater")
-public class RedisOperater implements CacheOperate {
+public class RedisOperator implements CacheOperator {
 	
-	private  final Logger log = LogManager.getLogger(RedisOperater.class);
+	private  final Logger log = LogManager.getLogger(RedisOperator.class);
 
 	@SuppressWarnings("rawtypes")
 	@Autowired
