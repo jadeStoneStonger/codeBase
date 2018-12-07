@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jadeStones.Entity.Test;
 import cn.jadeStones.Service.TestService;
-import cn.jadeStones.base.cache.CacheOperate;
+import cn.jadeStones.base.cache.CacheOperator;
 import cn.jadeStones.base.response.MsgWrapper;
 import cn.jadeStones.base.response.RespMessage;
 
@@ -34,7 +34,7 @@ public class TestController {
 	@Autowired
 	private TestService test;
 	@Autowired
-	private CacheOperate cacheOperate;
+	private CacheOperator cacheOperate;
 	
 	@RequestMapping("/aaa")  
     public String toIndex(HttpServletRequest request,HttpServletResponse response) throws IOException{  

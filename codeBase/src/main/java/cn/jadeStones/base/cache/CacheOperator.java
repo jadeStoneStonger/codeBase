@@ -1,7 +1,11 @@
 package cn.jadeStones.base.cache;
 
-
-public interface CacheOperate {
+/**
+ * 操作缓存的接口
+ * @author 
+ *
+ */
+public interface CacheOperator {
 	
 	 String getString(String key);
 	 
